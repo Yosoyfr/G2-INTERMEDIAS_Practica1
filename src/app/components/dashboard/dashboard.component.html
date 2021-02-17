@@ -1,0 +1,104 @@
+<section class="pt-4">
+  <!-- Container -->
+  <div class="container">
+    <div class="row mb-4">
+      <!-- Usuarios -->
+      <div class="col-lg-4 col-12">
+        <!-- Card de Usuarios -->
+        <div class="card card-lg mb-5 bg-primary rounded text-white border">
+          <div class="card-body">
+            <!-- Heading -->
+            <h3 class="mb-4">Formulario de usuarios</h3>
+            <!-- User Form -->
+            <form [formGroup]="UserForm" (ngSubmit)="setUser(UserForm.value)">
+              <div class="row">
+                <!-- Name -->
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <!-- Input -->
+                    <input
+                      class="form-control rounded"
+                      type="text"
+                      placeholder="Name *"
+                      formControlName="name"
+                      id="name"
+                    />
+                  </div>
+                </div>
+                <!-- Password -->
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <!-- Input -->
+                    <input
+                      class="form-control rounded"
+                      type="password"
+                      placeholder="Password *"
+                      formControlName="password"
+                      id="password"
+                    />
+                  </div>
+                </div>
+                <!-- Email -->
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="email">Email address</label>
+                    <!-- Input -->
+                    <input
+                      class="form-control rounded"
+                      type="email"
+                      placeholder="Email *"
+                      formControlName="email"
+                      id="email"
+                    />
+                  </div>
+                </div>
+                <!-- Buttons -->
+                <div class="text-center col-12">
+                  <button
+                    class="btn btn-lg btn-success rounded mx-2"
+                    type="submit"
+                    [disabled]="UserForm.invalid"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    class="btn btn-lg btn-danger rounded mx-2"
+                    type="submit"
+                    [disabled]="UserForm.invalid"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-12">
+        <h2>Usuarios en el sistema</h2>
+        <table class="table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Name</th>
+              <th scope="col">Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="table-light"
+              *ngFor="let u of users"
+              (click)="getUser(u.email)"
+            >
+              <th scope="row">{{ u.email }}</th>
+              <td>{{ u.name }}</td>
+              <td>{{ u.password }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
