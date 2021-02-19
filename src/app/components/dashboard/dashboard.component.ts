@@ -14,7 +14,13 @@ export class DashboardComponent implements OnInit {
   /*Users*/
   users: User[];
   /*User*/
-  user: User;
+  user = {
+    'name':'',
+    'email':'',
+    'password': ''
+  };
+  /*Editing enable*/
+  editing = false;
 
   constructor(
     public userService: UsersService,
@@ -34,17 +40,46 @@ export class DashboardComponent implements OnInit {
     this.users = this.userService.getUsers();
   }
 
+  /** Create */
   setUser(value) {
     var user: User = value;
-    this.addUser(user);
+    this.userService.addUser(user);
   }
 
+  /** Read */
   getUser(email: string) {
     this.user = this.userService.getUser(email);
-    console.log(this.user);
+    this.UserForm.setValue(this.user)
+    this.editing = !this.editing;
+    this.UserForm.controls['email'].disable();
   }
 
-  addUser(user: User) {
-    this.userService.addUser(user);
+  /** Update */
+  updateUser() {
+    let user: User ={
+      'name': this.UserForm.get('name').value,
+      'email': this.UserForm.get('email').value,
+      'password': this.UserForm.get('password').value
+    } //Get values from form.
+    this.userService.setUser(user);//Change user
+    this.resetValues()
+  }
+
+  /** Delete */
+  deleteUser(){
+    let user: User ={
+      'name': this.UserForm.get('name').value,
+      'email': this.UserForm.get('email').value,
+      'password': this.UserForm.get('password').value
+    } //Get values from form.
+    this.userService.deleteUser(user);
+    this.resetValues();
+  }
+
+  resetValues()
+  {
+    this.editing = !this.editing;
+    this.UserForm.controls['email'].enable();
+    this.UserForm.reset();
   }
 }

@@ -40,6 +40,7 @@ export class UsersService {
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].email == user.email) {
         this.users[i] = user;
+        console.log(this.users)
         break;
       }
     }
@@ -50,6 +51,13 @@ export class UsersService {
   }
 
   deleteUser(user: User) {
+    for (let i = 0; i < this.users.length; i++) {
+      if (this.users[i].email == user.email) {
+        this.users.splice(i,1);
+        console.log(this.users)
+        break;
+      }
+    }
     this.users = this.users.filter((e) => e !== user);
   }
 

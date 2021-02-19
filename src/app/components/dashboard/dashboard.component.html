@@ -10,7 +10,7 @@
             <!-- Heading -->
             <h3 class="mb-4">Formulario de usuarios</h3>
             <!-- User Form -->
-            <form [formGroup]="UserForm" (ngSubmit)="setUser(UserForm.value)">
+            <form [formGroup]="UserForm" (ngSubmit)="setUser(UserForm.value)" ng>
               <div class="row">
                 <!-- Name -->
                 <div class="col-12">
@@ -59,16 +59,32 @@
                   <button
                     class="btn btn-lg btn-success rounded mx-2"
                     type="submit"
-                    [disabled]="UserForm.invalid"
+                    [disabled]="UserForm.invalid|| editing"
                   >
                     Submit
                   </button>
                   <button
                     class="btn btn-lg btn-danger rounded mx-2"
-                    type="submit"
-                    [disabled]="UserForm.invalid"
+                    type="button"
+                    [disabled]="UserForm.invalid || !editing"
+                    (click)="deleteUser()"
                   >
                     Delete
+                  </button>
+                  <button
+                    class="btn btn-lg btn-warning rounded mx-2"
+                    type="button"
+                    (click)="updateUser()"
+                    [disabled]="UserForm.invalid || !editing"
+                  >
+                    Update
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-outline-danger"
+                    (click)="resetValues()"
+                  >
+                  X
                   </button>
                 </div>
               </div>
