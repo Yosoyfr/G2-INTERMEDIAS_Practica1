@@ -15,9 +15,9 @@ export class DashboardComponent implements OnInit {
   users: User[];
   /*User*/
   user = {
-    'name':'',
-    'email':'',
-    'password': ''
+    name: '',
+    email: '',
+    password: '',
   };
   /*Editing enable*/
   editing = false;
@@ -41,44 +41,44 @@ export class DashboardComponent implements OnInit {
   }
 
   /** Create */
-  setUser(value) {
+  addUser(value) {
     var user: User = value;
     this.userService.addUser(user);
+    this.resetValues();
   }
 
   /** Read */
   getUser(email: string) {
     this.user = this.userService.getUser(email);
-    this.UserForm.setValue(this.user)
-    this.editing = !this.editing;
+    this.UserForm.setValue(this.user);
+    this.editing = true;
     this.UserForm.controls['email'].disable();
   }
 
   /** Update */
   updateUser() {
-    let user: User ={
-      'name': this.UserForm.get('name').value,
-      'email': this.UserForm.get('email').value,
-      'password': this.UserForm.get('password').value
-    } //Get values from form.
-    this.userService.setUser(user);//Change user
-    this.resetValues()
+    let user: User = {
+      name: this.UserForm.get('name').value,
+      email: this.UserForm.get('email').value,
+      password: this.UserForm.get('password').value,
+    }; //Get values from form.
+    this.userService.setUser(user); //Change user
+    this.resetValues();
   }
 
   /** Delete */
-  deleteUser(){
-    let user: User ={
-      'name': this.UserForm.get('name').value,
-      'email': this.UserForm.get('email').value,
-      'password': this.UserForm.get('password').value
-    } //Get values from form.
+  deleteUser() {
+    let user: User = {
+      name: this.UserForm.get('name').value,
+      email: this.UserForm.get('email').value,
+      password: this.UserForm.get('password').value,
+    }; //Get values from form.
     this.userService.deleteUser(user);
     this.resetValues();
   }
 
-  resetValues()
-  {
-    this.editing = !this.editing;
+  resetValues() {
+    this.editing = false;
     this.UserForm.controls['email'].enable();
     this.UserForm.reset();
   }
